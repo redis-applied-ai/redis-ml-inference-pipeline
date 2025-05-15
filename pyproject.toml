@@ -1,0 +1,53 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "redis-ml-inference-pipeline"
+version = "0.2.0"
+description = "Redis ML Inference Pipeline for Fraud Detection"
+readme = "README.md"
+authors = [
+    {name = "Tyler Hutcherson", email = "tyler.hutcherson@redis.com"}
+]
+dynamic = ["dependencies"]
+
+[project.scripts]
+prepare = "pipeline.cli.prepare:main"
+worker = "pipeline.cli.worker:main"
+generate = "pipeline.cli.generate:main"
+monitor = "pipeline.cli.monitor:main"
+format = "pipeline.cli.format:main"
+cleanup = "pipeline.cli.cleanup:main"
+load-test = "pipeline.cli.load_test:main"
+
+[tool.poetry]
+packages = [{include = "pipeline"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+redis = "5.3.0"
+redisvl = "0.6.0"
+pandas = ">=2.0.0"
+numpy = ">=1.20.0"
+pydantic = ">=2.0.0"
+pydantic-settings = ">=2.0.0"
+redis-model-store = "0.0.2"
+scikit-learn = "^1.6.1"
+pyarrow = "^20.0.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0.0"
+black = ">=23.0.0"
+isort = ">=5.0.0"
+
+[tool.pytest]
+testpaths = ["pipeline/test"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+[tool.isort]
+profile = "black"
+line_length = 88 
